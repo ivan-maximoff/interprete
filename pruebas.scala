@@ -1,8 +1,36 @@
-package interprete
+// es todo el codigo junto para ir probandolo
 
-import modelo.Operador
-import modelo.Operador.{LAMBDA, PUNTO, PAREN_IZQ, PAREN_DER, ESPACIO}
-import modelo.expresion.{Variable. Abstraccion, Aplicacion}
+enum Operador {
+  case LAMBDA, PUNTO, PAREN_IZQ, PAREN_DER, ESPACIO
+}
+
+sealed trait Expresion
+
+case class Variable(nombre: String) extends Expresion
+case class Abstraccion(variable: Variable, cuerpo: Expresion) extends Expresion
+case class Aplicacion(funcion: Expresion, argumento: Expresion) extends Expresion
+
+import scala.annotation.tailrec
+
+def leerEcuacion(ecuacion: String): List[Operador | String] = {
+    val ops = ecuacion.split("").toList
+    _leerEcuacionRec(ops)
+}
+
+private def _leerEcuacionRec(tokens: List[String]): List[Operador | String] = tokens match {
+    case Nil => List()
+    case x::xs => {
+        val op = x match {
+            case "λ" => Operador.LAMBDA
+            case " " => Operador.ESPACIO
+            case "." => Operador.PUNTO
+            case "(" => Operador.PAREN_IZQ
+            case ")" => Operador.PAREN_DER
+            case _ => x 
+        }
+        op::_leerEcuacionRec(xs)
+    }
+}
 
 def encontrarAplicacion(ecuacion: List[Operador | String], aplicaciones: Int, index: Int): Int = {
     ecuacion match

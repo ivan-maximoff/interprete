@@ -1,5 +1,6 @@
 package modelo
 
+// Caracteres validos que puede recibir el Lexer
 enum Operador {
-  case SUMA, MULT, RAIZ, CUADRADO
+  case LAMBDA, PUNTO, PAREN_IZQ, PAREN_DER, ESPACIO
 }

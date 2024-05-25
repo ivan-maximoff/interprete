@@ -4,22 +4,22 @@ import modelo.Operador
 
 import scala.annotation.tailrec
 
-def leerEcuacion(ecuacion: String): List[Operador | Float] = {
-  val ops = ecuacion.split(" ").toList
-  _leerEcuacionRec(ops)
+def leerEcuacion(ecuacion: String): List[Operador | String] = {
+    val ops = ecuacion.split("").toList
+    _leerEcuacionRec(ops)
 }
 
-private def _leerEcuacionRec(tokens: List[String]): List[Operador | Float] = {
-  tokens match {
+private def _leerEcuacionRec(tokens: List[String]): List[Operador | String] = tokens match {
     case Nil => List()
-    case x::xs =>
-      val op = x match {
-        case "+" => Operador.SUMA
-        case "*" => Operador.MULT
-        case "^2" => Operador.CUADRADO
-        case "sqrt" => Operador.RAIZ
-        case _ => x.toFloat
-      }
-      op::_leerEcuacionRec(xs)
-  }
+    case x::xs => {
+        val op = x match {
+            case "λ" => Operador.LAMBDA
+            case " " => Operador.ESPACIO
+            case "." => Operador.PUNTO
+            case "(" => Operador.PAREN_IZQ
+            case ")" => Operador.PAREN_DER
+            case _ => x 
+        }
+        op::_leerEcuacionRec(xs)
+    }
 }

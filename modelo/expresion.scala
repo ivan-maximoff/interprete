@@ -2,8 +2,7 @@ package modelo.expresion
 
 sealed trait Expresion
 
-case class Valor(v: Float) extends Expresion
-case class Suma(e1: Expresion, e2: Expresion) extends Expresion
-case class Mult(e1: Expresion, e2: Expresion) extends Expresion
-case class Raiz(e: Expresion) extends Expresion
-case class Cuadrado(e: Expresion) extends Expresion
+// Secuencia de tokens que puede recibir el Parser
+case class Variable(nombre: String) extends Expresion
+case class Abstraccion(variable: Variable, cuerpo: Expresion) extends Expresion
+case class Aplicacion(funcion: Expresion, argumento: Expresion) extends Expresion
