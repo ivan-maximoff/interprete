@@ -2,16 +2,18 @@ package interprete
 
 import modelo.Operador
 import modelo.Operador.{LAMBDA, PUNTO, PAREN_IZQ, PAREN_DER, ESPACIO}
-import modelo.expresion.{Variable. Abstraccion, Aplicacion}
+import modelo.expresion.{Variable, Abstraccion, Aplicacion}
 
 def encontrarAplicacion(ecuacion: List[Operador | String], aplicaciones: Int, index: Int): Int = {
-    ecuacion match
+    ecuacion match {
       case x :: xs =>
-         x match
+        x match {
           case Operador.ESPACIO if aplicaciones == 0 => index
           case Operador.PAREN_IZQ => encontrarAplicacion(xs, aplicaciones + 1, index + 1)
           case Operador.PAREN_DER => encontrarAplicacion(xs, aplicaciones - 1, index + 1)
           case _ => encontrarAplicacion(xs, aplicaciones, index + 1)
+        }
+    }
 }
 
 def interpretarEcuacion(ecuacion: List[Operador | String]): Expresion = {
@@ -19,14 +21,15 @@ def interpretarEcuacion(ecuacion: List[Operador | String]): Expresion = {
 }
 
 private def _interpretarEcuacion(ecuacion: List[Operador | String]): Expresion = {
-  ecuacion match
+  ecuacion match {
     case Nil => Variable("")
     case (s: String) :: xs => Variable(s)
-    case Operador.LAMBDA :: (nombre: String) :: Operador.PUNTO :: xs  =>
+    case Operador.LAMBDA :: (nombre: String) :: Operador.PUNTO :: xs =>
       val variable = Variable(nombre)
       Abstraccion(variable, cuerpo = _interpretarEcuacion(xs))
     case Operador.PAREN_IZQ :: xs =>
       val indexSeparacion = encontrarAplicacion(xs.init, 0, 1)
       val (lista1, lista2) = xs.splitAt(indexSeparacion)
       Aplicacion(funcion = _interpretarEcuacion(lista1), argumento = _interpretarEcuacion(lista2))
+  }
 }
