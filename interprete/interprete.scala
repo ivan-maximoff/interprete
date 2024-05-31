@@ -33,3 +33,15 @@ private def _interpretarEcuacion(ecuacion: List[Operador | String]): Expresion =
       Aplicacion(funcion = _interpretarEcuacion(lista1), argumento = _interpretarEcuacion(lista2))
   }
 }
+
+def interpretarArbol(expresion: Expresion): List[Operador | String] = {
+  _interpretarArbol(expresion)
+}
+
+private def _interpretarArbol(expresion: Expresion): List[Operador | String] = {
+  expresion match {
+    case Variable(v) => List(v)
+    case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _interpretarArbol(e2)
+    case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _interpretarArbol(e1) ::: List(Operador.ESPACIO) ::: _interpretarArbol(e2) ::: List(Operador.PAREN_DER)
+  }
+}
