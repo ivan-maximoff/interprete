@@ -121,15 +121,3 @@ object Main {
     }
 }
 /*
-def leerInput(): Unit = {
-    val input = scala.io.StdIn.readLine()
-    input match {
-        case null =>
-        case _ =>
-            val ecuacionParseada = leerEcuacion(input)
-            val expresion = interpretarEcuacion(ecuacionParseada)
-            val resultado = reducir(expresion, callByName)
-            printf("Resultado = %f \n", resultado)
-            leerInput()
-    }
-}*/
