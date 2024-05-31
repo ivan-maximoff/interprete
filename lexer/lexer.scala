@@ -1,6 +1,6 @@
-package lector
+package lexer
 
-import modelo.Operador
+import model.Operador
 
 import scala.annotation.tailrec
 

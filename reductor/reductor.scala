@@ -1,6 +1,6 @@
-package procesador
+package reductor
 
-import modelo.expresion.*
+import model.expresion.*
 
 def reducir(expresion: Expresion, reductor: Expresion => Expresion): Expresion = {
     reductor(expresion)

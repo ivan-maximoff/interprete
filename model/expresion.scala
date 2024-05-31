@@ -1,4 +1,4 @@
-package modelo.expresion
+package modelo
 
 sealed trait Expresion
 
