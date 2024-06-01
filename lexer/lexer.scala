@@ -2,8 +2,6 @@ package lexer
 
 import model.Operador
 
-import scala.annotation.tailrec
-
 def leerEcuacion(ecuacion: String): List[Operador | String] = {
     ecuacion.map(x => stringToToken(x.toString)).toList
 }

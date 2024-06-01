@@ -50,7 +50,6 @@ def _callByName(expresion: Expresion): Expresion = {
                 case _ => Aplicacion(callByName(e1), callByName(e2))
             }
     }
-
 }
 
 def callByValue(expresion: Expresion): Expresion = {
@@ -71,14 +70,14 @@ def _callByValue(expresion: Expresion): Expresion = {
             }
     }
 }
-def variablesLibres(expresion: Expresion) : Expresion = {
-    VarLibres(_variablesLibres(expresion))
+def freeVariables(expresion: Expresion) : Expresion = {
+    VarLibres(_freeVariables(expresion))
 }
 
-def _variablesLibres(expresion: Expresion): Set[String] = {
+def _freeVariables(expresion: Expresion): Set[String] = {
     expresion match {
         case Variable(v) => Set(v)
-        case Abstraccion(Variable(vl), e2) => _variablesLibres(e2) - vl
-        case Aplicacion(e1, e2) => _variablesLibres(e1) ++ _variablesLibres(e2)
+        case Abstraccion(Variable(vl), e2) => _freeVariables(e2) - vl
+        case Aplicacion(e1, e2) => _freeVariables(e1) ++ _freeVariables(e2)
     }
 }
