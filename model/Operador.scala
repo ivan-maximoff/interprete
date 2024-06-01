@@ -1,4 +1,4 @@
-package modelo
+package model
 
 // Caracteres validos que puede recibir el Lexer
 enum Operador {
