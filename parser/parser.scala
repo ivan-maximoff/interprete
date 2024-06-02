@@ -34,14 +34,14 @@ private def _parserEcuacion(ecuacion: List[Operador | String]): Expresion = {
   }
 }
 
-def parserArbol(expresion: Expresion): List[Operador | String] = {
-  _parserArbol(expresion)
+def interpretarArbol(expresion: Expresion): List[Operador | String] = {
+  _interpretarArbol(expresion)
 }
 
-private def _parserArbol(expresion: Expresion): List[Operador | String] = {
+private def _interpretarArbol(expresion: Expresion): List[Operador | String] = {
   expresion match {
     case Variable(v) => List(v)
-    case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _parserArbol(e2)
-    case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _parserArbol(e1) ::: List(Operador.ESPACIO) ::: _parserArbol(e2) ::: List(Operador.PAREN_DER)
+    case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _interpretarArbol(e2)
+    case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _interpretarArbol(e1) ::: List(Operador.ESPACIO) ::: _interpretarArbol(e2) ::: List(Operador.PAREN_DER)
   }
 }
