@@ -2,7 +2,8 @@ package parser
 
 import model.Operador
 import model.Operador.{LAMBDA, PUNTO, PAREN_IZQ, PAREN_DER, ESPACIO}
-import model.expresion.{Variable, Abstraccion, Aplicacion}
+import model.expresion.{Variable, Abstraccion, Aplicacion, VarLibres}
+import model.expresion.Expresion
 
 def encontrarAplicacion(ecuacion: List[Operador | String], aplicaciones: Int, index: Int): Int = {
     ecuacion match {
@@ -34,14 +35,14 @@ private def _parserEcuacion(ecuacion: List[Operador | String]): Expresion = {
   }
 }
 
-def interpretarArbol(expresion: Expresion): List[Operador | String] = {
-  _interpretarArbol(expresion)
+def parserArbol(expresion: Expresion): List[Operador | String] = {
+  _parserArbol(expresion)
 }
 
-private def _interpretarArbol(expresion: Expresion): List[Operador | String] = {
+private def _parserArbol(expresion: Expresion): List[Operador | String] = {
   expresion match {
     case Variable(v) => List(v)
-    case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _interpretarArbol(e2)
-    case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _interpretarArbol(e1) ::: List(Operador.ESPACIO) ::: _interpretarArbol(e2) ::: List(Operador.PAREN_DER)
+    case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _parserArbol(e2)
+    case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _parserArbol(e1) ::: List(Operador.ESPACIO) ::: _parserArbol(e2) ::: List(Operador.PAREN_DER)
   }
 }

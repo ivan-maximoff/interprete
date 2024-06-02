@@ -54,8 +54,8 @@ def _callByName(expresion: Expresion): Expresion = {
 
 def callByValue(expresion: Expresion): Expresion = {
     expresion match {
-        case _ if _callByValue(expresion) == expresion => expresion
-        case _ => callByValue(_callByValue(expresion))
+      case _ if _callByValue(expresion) == expresion => expresion
+      case _ => callByValue(_callByValue(expresion))
     }
 }
 
@@ -63,11 +63,11 @@ def _callByValue(expresion: Expresion): Expresion = {
     expresion match {
         case Variable(v) => expresion
         case Abstraccion(e1, e2) => Abstraccion(e1, _callByValue(e2))
-        case Aplicacion(e1, e2) =>
-            e1 match {
+        case Aplicacion(e1, e2) => {
+            e1 match 
                 case Abstraccion(vl, e) => _callByValue(sustitucion(vl, e, _callByValue(e2)))
                 case _ => Aplicacion(_callByValue(e1), _callByValue(e2))
-            }
+        }
     }
 }
 def freeVariables(expresion: Expresion) : Expresion = {

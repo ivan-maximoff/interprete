@@ -2,8 +2,8 @@ package interprete
 
 import lexer.leerEcuacion
 import lexer.leerTokens
-import parser.parseEcuacion
-import parser.interpretarArbol
+import parser.parserEcuacion
+import parser.parserArbol
 import reductor.reducir
 import reductor.callByName
 import reductor.callByValue
@@ -21,7 +21,7 @@ def leerInput(reductor : Expresion => Expresion): Unit = {
     val input = scala.io.StdIn.readLine()
     input match {
         case null =>
-        case _ if input.split(" ")[0] == "set" => input.split(" ")[1] match {
+        case _ if input.split(" ").toList.head.toString == "set" => input.split(" ").toList.tail.head match {
             case "call-by-name" => leerInput(callByName)
             case "call-by-value" => leerInput(callByValue)
             case "free-variables" => leerInput(freeVariables)
@@ -29,10 +29,10 @@ def leerInput(reductor : Expresion => Expresion): Unit = {
         }
         case _ =>
             val ecuacion = leerEcuacion(input)
-            val expresion = parseEcuacion(ecuacion)
-            val reducido = reducir(expresion, callByName)
-            val resultado = leerTokens(interpretarArbol(reducido))
-            printf("Resultado = %f \n", resultado)
+            val expresion = parserEcuacion(ecuacion)
+            val reducido = reducir(expresion, reductor)
+            val resultado = leerTokens(parserArbol(reducido))
+            println(resultado)
             leerInput(reductor)
     }
 }
