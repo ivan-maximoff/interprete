@@ -44,5 +44,6 @@ private def _parserArbol(expresion: Expresion): List[Operador | String] = {
     case Variable(v) => List(v)
     case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: _parserArbol(e2)
     case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: _parserArbol(e1) ::: List(Operador.ESPACIO) ::: _parserArbol(e2) ::: List(Operador.PAREN_DER)
+    case VarLibres(variables) => variables.toList
   }
 }
