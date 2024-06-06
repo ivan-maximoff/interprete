@@ -3,7 +3,8 @@ package lexer
 import model.Operador
 
 def leerEcuacion(ecuacion: String): List[Operador | String] = {
-    ecuacion.map(x => stringToToken(x.toString)).toList
+    val tokens = ecuacion.map(x => stringToToken(x.toString)).toList
+    unirStrings(tokens)
 }
 
 def stringToToken(string : String): Operador | String = {
@@ -14,6 +15,13 @@ def stringToToken(string : String): Operador | String = {
         case "(" => Operador.PAREN_IZQ
         case ")" => Operador.PAREN_DER
         case _ => string
+    }
+}
+
+def unirStrings(tokens : List[Operador | String]): List[Operador | String] = {
+    tokens.foldRight(List.empty[Operador | String]) {
+        case (token : String, (head : String) :: tail) => (token+head) :: tail
+        case (token, sig) => token :: sig
     }
 }
 
