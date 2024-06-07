@@ -1,12 +1,9 @@
-Ejemplo que nos dan la presentacion del TP
+VERSION DE JDK: Es necesario tener instalada la version openJDK 17 u otras en adealante.
+VERSION DE SCALA: version 3.4.2
 
-leerEcuacion("(λx.λy.y (λx.(x x) λx.(x x)))")
-interpretarEcuacion(res0)
+INSTRUCCIONES PARA CORRER EL PROGRAMA:
+-Se deben clonar/copiar los archivos del repositorio localmente.
+-En una terminal dirigirse al directorio en el que se guardaron los archivos.
+-Compilar el programa con:  scalac **/*.scala
+-Ejecutar el programa compilado con:  scala main.scala
 
-Aplicacion(Abstraccion(Variable(x),Abstraccion(Variable(y),Variable(y))),Aplicacion(Abstraccion(Variable(x),Aplicacion(Variable(x),Variable(x))),Abstraccion(Variable(x),Aplicacion(Variable(x),Variable(x)))))
-
-![image](https://github.com/ivan-maximoff/interprete/assets/112181357/84163e0f-0e94-43d1-9fc2-80beab12285b)
-
-Pasos:
-1) interprete$ scalac **/*.scala
-2) interprete$ scala main.scala
