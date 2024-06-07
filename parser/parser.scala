@@ -36,6 +36,6 @@ def parserArbol(expresion: Expresion): List[Operador | String] = {
     case Variable(v) => List(v)
     case Abstraccion(e1,e2) => Operador.LAMBDA :: e1.nombre :: Operador.PUNTO :: parserArbol(e2)
     case Aplicacion(e1,e2) => Operador.PAREN_IZQ :: parserArbol(e1) ::: List(Operador.ESPACIO) ::: parserArbol(e2) ::: List(Operador.PAREN_DER)
-    case VarLibres(variables) => variables.toList
+    case VarLibres(variables) => List(s"{${variables.mkString(",")}}")
   }
 }
